@@ -1,0 +1,63 @@
+{
+	"name": "Totalempbydept",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_empdata",
+						"type": "DatasetReference"
+					},
+					"name": "empsource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_tottalempbydept",
+						"type": "DatasetReference"
+					},
+					"name": "totalempbydeptsink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregateondept"
+				},
+				{
+					"name": "deptjoin"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmpId as string,",
+				"          Ename as string,",
+				"          Country as string,",
+				"          Departname as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> empsource",
+				"empsource aggregate(groupBy(Departname),",
+				"     Totalemployees = count(EmpId),",
+				"     partitionBy('hash', 1)) ~> aggregateondept",
+				"empsource, aggregateondept join(empsource@Departname == aggregateondept@Departname,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> deptjoin",
+				"deptjoin sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['aggregatebydept'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          Deptid = Departname,",
+				"          Totalemployees",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> totalempbydeptsink"
+			]
+		}
+	}
+}

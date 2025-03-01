@@ -1,0 +1,27 @@
+{
+	"name": "outputlocationdataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_storageaccount",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"outputfolder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@dataset().outputfolder",
+					"type": "Expression"
+				},
+				"container": "input"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

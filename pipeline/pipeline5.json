@@ -1,0 +1,40 @@
+{
+	"name": "pipeline5",
+	"properties": {
+		"activities": [
+			{
+				"name": "Setvariable",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "fietype",
+					"value": {
+						"value": "@replace(pipeline().parameters.filename,'sales','')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"fietype": {
+				"type": "String"
+			},
+			"listoffiles": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-16T04:14:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

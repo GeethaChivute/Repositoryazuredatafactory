@@ -1,0 +1,19 @@
+{
+	"name": "blobstoragedatafiledeletion",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_storageaccount",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "data.txt",
+				"container": "input"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

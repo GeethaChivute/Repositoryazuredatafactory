@@ -1,0 +1,91 @@
+{
+	"name": "Allemployees",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_empdata",
+						"type": "DatasetReference"
+					},
+					"name": "empsource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_Itemployees",
+						"type": "DatasetReference"
+					},
+					"name": "ITsink"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_accountsmployees",
+						"type": "DatasetReference"
+					},
+					"name": "Accountssink"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_serviceemployees",
+						"type": "DatasetReference"
+					},
+					"name": "Servicesink"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_otheremp",
+						"type": "DatasetReference"
+					},
+					"name": "otherempsink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "splitondept"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmpId as string,",
+				"          Ename as string,",
+				"          Country as string,",
+				"          Departname as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> empsource",
+				"empsource split(equals(Departname, '1'),",
+				"     equals(Departname, '2'),",
+				"     equals(Departname, '3'),",
+				"     disjoint: false) ~> splitondept@(ITemployees, Accountemployees, Serviceemployees, Otheremployees)",
+				"splitondept@ITemployees sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['ITemployees.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> ITsink",
+				"splitondept@Accountemployees sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Accountemployees.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> Accountssink",
+				"splitondept@Serviceemployees sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Serviceemployees.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> Servicesink",
+				"splitondept@Otheremployees sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['otheremp.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> otherempsink"
+			]
+		}
+	}
+}

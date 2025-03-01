@@ -1,0 +1,37 @@
+{
+	"name": "web_activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"content-type": "application/json"
+					},
+					"url": "https://ismartcubeuat.industowers.com/induscustomerapi/api/SRDetail",
+					"body": {
+						"UniqueRequestId": "ARTL-1017",
+						"Request_Ref_No": "R/RES-319727",
+						"Indus_Site_ID": "IN-1282992",
+						"Operator": "Airtel",
+						"Token": "a640000ef8ff8d2d2fa804104293e4bf4c2dbe47b3d2d7c4fe91026925965314f163817e415c7d34ca6dfba29252f70d494ed8e4730793312ad40a51d4115c3f947cc48a7beaf401c7927cbeae4367d356803a77779f4b8401fc71b405824052"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-02-20T01:07:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

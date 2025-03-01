@@ -1,0 +1,34 @@
+{
+	"name": "pipeline6",
+	"properties": {
+		"activities": [
+			{
+				"name": "Appendvariableforlistoffiles",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "listoffiles",
+					"value": {
+						"value": "@pipeline().parameters.filename",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"filename": {
+				"type": "string",
+				"defaultValue": "salesindia.txt"
+			}
+		},
+		"variables": {
+			"listoffiles": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-16T04:14:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

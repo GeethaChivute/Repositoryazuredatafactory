@@ -1,0 +1,9 @@
+{
+	"name": "instancegeethachivute",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "05b27569-bd75-4047-a492-d7b9054c1eac",
+		"tenantId": "c957f3f8-d19f-4be0-87f8-88f341a606bc"
+	}
+}

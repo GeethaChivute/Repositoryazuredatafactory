@@ -1,0 +1,23 @@
+{
+	"name": "ls_sqlserver",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"dbname": {
+				"type": "string",
+				"defaultValue": "siteshare3appindus"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "10.240.160.20",
+			"database": "@{linkedService().dbname}",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "linkedserver2",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEFDRkRBN0NELTkzMDEtNEE2Ri1BRTY2LTFEN0I0QTc5N0IyRl85YWFlNWYyNi03ODYyLTQ2ZWUtYjM5OC1iYWYxODIwZjM3ZjIiDQp9"
+		}
+	}
+}
